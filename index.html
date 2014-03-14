@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="ticTacToeApp">
   <head>
     <title>TIC TAC TOE</title>
     <link rel="stylesheet" type="text/css" href="css/reset.min.css">
@@ -20,7 +20,7 @@
           <h3 class="player"></h3>
         </li>
       </ul>
-      <div id="board">
+      <div id="board" ng-repeat="tile in tiles">
       </div>
       <div id="results">
         <h1></h1>
@@ -34,5 +34,7 @@
   <script src="js/tictactoe.js"></script>
   </body>
 </html>
+
+
 
 
