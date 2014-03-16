@@ -69,7 +69,7 @@ game.ticTacToe.controller('gameController', [
     ];
     $scope.winCombos = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
     $scope.currentPlayer = $scope.players[0];
-    $scope.switchCurrentPlayer = function() {
+    $scope.changeCurrentPlayer = function() {
       $scope.currentPlayer.indicator = null;
       if ($scope.currentPlayer === $scope.players[0]) {
         $scope.currentPlayer = $scope.players[1];
@@ -90,7 +90,7 @@ game.ticTacToe.controller('gameController', [
       return false;
     };
     $scope.isTie = function() {
-      if ($scope.tries = 9) {
+      if ($scope.tries === 9) {
         return true;
       }
       return false;
@@ -98,5 +98,24 @@ game.ticTacToe.controller('gameController', [
     $scope.newGame = function() {
       window.location.href = window.location.href;
     };
+    $scope.handleClick = function(tile) {
+      if (!tile.clicked) {
+        $scope.tries += 1;
+        tile.img_url = $scope.currentPlayer.img_url;
+        tile.clicked = true;
+        $scope.currentPlayer.tilesSelected.push(tile.position);
+        if ($scope.isWin($scope.currentPlayer.tilesSelected)) {
+          $scope.endGame.show = true;
+          $scope.endGame.message = $scope.currentPlayer.name + " is the winner!";
+          $scope.endGame.url = $scope.currentPlayer.img_url;
+        } else if ($scope.isTie()) {
+          $scope.endGame.show = true;
+          $scope.endGame.message = "Cat's Game!";
+          $scope.endGame.url = "img/cat.jpg";
+        }
+        return $scope.changeCurrentPlayer();
+      }
+    };
+    $scope.computerPlay = function() {};
   }
 ]);

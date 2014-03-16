@@ -69,9 +69,9 @@ game.ticTacToe.controller 'gameController', [ "$scope",
         [0,4,8], [2,4,6]
     ]
 
-    $scope.currentPlayer = $scope.players[0]    # Sets current player as first player
+    $scope.currentPlayer = $scope.players[0]
 
-    $scope.switchCurrentPlayer = ->
+    $scope.changeCurrentPlayer = ->                 # Switches current player
       $scope.currentPlayer.indicator = null
 
       if $scope.currentPlayer == $scope.players[0]
@@ -82,20 +82,47 @@ game.ticTacToe.controller 'gameController', [ "$scope",
       $scope.currentPlayer.indicator = "current"
       return
 
-    $scope.isWin = (tiles) ->
+    $scope.isWin = (tiles) ->                       # Sets what is a win
       for combo in $scope.winCombos
         if tiles.indexOf(combo[0]) >= 0 and tiles.indexOf(combo[1]) >= 0 and tiles.indexOf(combo[2]) >= 0
           return true
       return false
 
-    $scope.isTie = ->               # Cat's Game
-      if $scope.tries = 9
+    $scope.isTie = ->                               # Sets what is a tie
+      if $scope.tries == 9
         return true
       return false
 
     $scope.newGame = ->
       window.location.href = window.location.href
       return
+
+    $scope.handleClick = (tile) ->                   # core code
+      if not tile.clicked
+        $scope.tries += 1
+        tile.img_url = $scope.currentPlayer.img_url
+        tile.clicked = true
+        $scope.currentPlayer.tilesSelected.push tile.position
+
+        if $scope.isWin($scope.currentPlayer.tilesSelected)
+          $scope.endGame.show = true
+          $scope.endGame.message = $scope.currentPlayer.name + " is the winner!"
+          $scope.endGame.url = $scope.currentPlayer.img_url
+        else if $scope.isTie()
+          $scope.endGame.show = true
+          $scope.endGame.message = "Cat's Game!"
+          $scope.endGame.url = "img/cat.jpg"
+
+        $scope.changeCurrentPlayer()
+
+    $scope.computerPlay = ->
+      # Play computer button starts game.
+      # a) computer is X (ernie), takes corner 0
+      # b) checks to see if middle 4 is open, if yes, takes it, if not
+      #    take 9
+      # c) If 4 & 9 are NOT taken, take 3 or 5. else, take 2 or 6.
+      # This should end in a fork thus win
+
 
     return
 ]
