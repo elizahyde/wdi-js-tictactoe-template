@@ -117,11 +117,16 @@ game.ticTacToe.controller 'gameController', [ "$scope",
 
     $scope.computerPlay = ->
       # Play computer button starts game.
+      # currentPlayer = computer = Ernie
+      # computer makes move when $scope.currentPlayer = $scope.players[0]
+      # easy computer wins
       # a) computer is X (ernie), takes corner 0
       # b) checks to see if middle 4 is open, if yes, takes it, if not
       #    take 9
       # c) If 4 & 9 are NOT taken, take 3 or 5. else, take 2 or 6.
-      # This should end in a fork thus win
+      # d) Take 3 or 7
+      # the unbeatable way uses minimax algorithm
+
 
 
     return
