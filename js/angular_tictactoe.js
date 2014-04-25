@@ -98,7 +98,9 @@ game.ticTacToe.controller('gameController', [
     $scope.newGame = function() {
       window.location.href = window.location.href;
     };
-    $scope.handleClick = function(tile) {
+    $scope.handleClick = function() {
+      var tile;
+      tile = this.tile;
       if (!tile.clicked) {
         $scope.tries += 1;
         tile.img_url = $scope.currentPlayer.img_url;

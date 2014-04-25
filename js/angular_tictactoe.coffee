@@ -97,7 +97,8 @@ game.ticTacToe.controller 'gameController', [ "$scope",
       window.location.href = window.location.href
       return
 
-    $scope.handleClick = (tile) ->                   # core code
+    $scope.handleClick = () ->                   # core code
+      tile = this.tile
       if not tile.clicked
         $scope.tries += 1
         tile.img_url = $scope.currentPlayer.img_url
@@ -125,7 +126,7 @@ game.ticTacToe.controller 'gameController', [ "$scope",
       #    take 9
       # c) If 4 & 9 are NOT taken, take 3 or 5. else, take 2 or 6.
       # d) Take 3 or 7
-      # the unbeatable way uses minimax algorithm
+      # the unbeatable way uses minimax algorithm according to my research
 
 
 
